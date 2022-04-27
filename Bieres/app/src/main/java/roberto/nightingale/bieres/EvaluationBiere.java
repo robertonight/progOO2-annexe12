@@ -36,15 +36,15 @@ public class EvaluationBiere extends AppCompatActivity {
         boutonEnregistrer.setOnClickListener(ecouteur);
     }
 
-    public class Ecouteur implements View.OnClickListener{
+    public class Ecouteur implements View.OnClickListener {
 
         @Override
         public void onClick(View source) {
-            if (source == boutonEnregistrer){
-                //instance.ajouterEvaluation();
+            instance.ajouterEvaluation(new Evaluation(champNomBiere.getText().toString(), champNomMicrobrasserie.getText().toString(), (int) etoilesBiere.getRating()));
 
-                // finish pour terminer la tache
-            }
+            // finish pour terminer la tache
+           // instance.closeDB();
+            finish();
         }
     }
 }

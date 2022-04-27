@@ -33,7 +33,7 @@ public class GestionBD extends SQLiteOpenHelper {
 
     public static GestionBD getInstance(Context context) {
         if (instance == null)
-            instance = new GestionBD(context, "db", null, 1);
+            instance = new GestionBD(context, "evaluations", null, 1);
         return instance;
     }
 
@@ -53,16 +53,17 @@ public class GestionBD extends SQLiteOpenHelper {
         database.close();
     }
 
-    public Vector<String> retournerMeilleurs(){
+    public Vector<String> retournerMeilleurs() {
         Cursor c;
         int i = 0;
         Vector<String> v = new Vector<>();
-        c = database.query("evaluations", new String[]{"nom"}, null, null, null, null,"nbEtoiles DESC", "3");
-        c = database.rawQuery("SELECT nom FROM evaluations ORDER BY nbEtoiles DESC LIMIT 3", null);
+        //c = database.query("evaluations", new String[]{"nom"}, null, null, null, null, "etoiles DESC", "3");
+        c = database.rawQuery("SELECT nom, microbrasserie, etoiles  FROM evaluations", null);
 
-        while (i<3){
+        while (i < 3) {
             c.moveToNext();
-            v.add(c.getString(0));
+            v.add(c.getString(0) + " de la microbrasserie " + c.getString(1) + " avec " + c.getString(2) + " étoiles");
+
             i++;
         }
         return v;
